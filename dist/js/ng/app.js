@@ -8,10 +8,10 @@
         $routeProvider
         // route for the home page
         // route for the Login
-        .when('/', {
-            templateUrl : 'pages/login.html',
-            controller  : 'loginController'
-        })
+        // .when('/', {
+        //     templateUrl : 'pages/login.html',
+        //     controller  : 'loginController'
+        // })
         //After login
         .when('/admin', {
             templateUrl : 'pages/home.html',
