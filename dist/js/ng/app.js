@@ -7,14 +7,15 @@
         $httpProvider.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
         $routeProvider
         // route for the home page
-        .when('/', {
-            templateUrl : 'pages/home.html',
-            controller  : 'mainController'
-        })
         // route for the Login
-        .when('/login', {
+        .when('/', {
             templateUrl : 'pages/login.html',
             controller  : 'loginController'
+        })
+        //After login
+        .when('/admin', {
+            templateUrl : 'pages/home.html',
+            controller  : 'mainController'
         })
         // route for the advocates page
         .when('/advocates', {
@@ -53,7 +54,7 @@
             controller  : 'unitsController'
         })
         .otherwise({
-          redirectTo: '/login'
+          redirectTo: '/admin'
         });
     })
 
