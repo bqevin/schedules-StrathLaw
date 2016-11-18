@@ -21,7 +21,6 @@ if(isset($_POST['submit'])) {
 	} else {
 		// if all the fields are filled (not empty)
     if ($email == "emaganjo@gmail.com" && $password == "password") {
-      session_register("user");
       $_SESSION['login_user'] = $user;
       header("Location:admin.html#/admin");
     } else {
