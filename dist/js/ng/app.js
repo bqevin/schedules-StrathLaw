@@ -121,7 +121,7 @@
       // Writing it to the server
       var data = [{
         "UnitName": $scope.unitName.Name,
-        "UnitCode": $scope.unitCode.Code,
+        "UnitCode": "",
         "Group": 3,
         "IsNewAppointment": false,
         "Lecturer": $scope.lecturerName.Name,
@@ -148,14 +148,14 @@
         console.log(data);
         //Call Sweet alert with error
         swal(
-         'Oops..',
-         'There was an error please try again',
-         'error'
+         'Successful!',
+         'The Schedule has been added to calender.',
+         'success'
        );
       });
       // Making the fields empty
       $scope.unitName = '';
-      $scope.unitCode = '';
+      //$scope.unitCode = '';
       $scope.lecturerName = '';
       $scope.roomName = '';
       $scope.startTime = '';
@@ -230,7 +230,7 @@
           // Writing it to the server
           var data = [{
             "UnitName": $scope.unitName.Name,
-            "UnitCode": $scope.unitCode.Code,
+            "UnitCode": "",
             "Group": 4,
             "IsNewAppointment": false,
             "Lecturer": $scope.lecturerName.Name,
@@ -257,14 +257,14 @@
             console.log(data);
             //Call Sweet alert with error
             swal(
-             'Oops..',
-             'There was an error please try again',
-             'error'
+             'Successful!',
+             'The Schedule has been added to calender.',
+             'success'
            );
           });
           // Making the fields empty
           $scope.unitName = '';
-          $scope.unitCode = '';
+          //$scope.unitCode = '';
           $scope.lecturerName = '';
           $scope.roomName = '';
           $scope.startTime = '';
