@@ -20,7 +20,7 @@ if(isset($_POST['submit'])) {
 	//	echo "<br/><a href='javascript:self.history.back();'>Go Back</a>";
 	} else {
 		// if all the fields are filled (not empty)
-    if ($email == "emaganjo@gmail.com" && $password == "password") {
+    if ($email == "vindimuli@strathmore.edu" && $password == "password") {
       $_SESSION['login_user'] = $user;
       header("Location:admin.html#/admin");
     } else {
