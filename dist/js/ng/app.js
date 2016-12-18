@@ -118,7 +118,6 @@
     };
     //Saving Prosecutor Schedule
     $scope.addProsecutorSched = function(){
-
       //Auto generate repeated schedules
       var RepeatSchedules = (function() {
       //Schedules Holder
@@ -128,24 +127,21 @@
         this.period = period;
         this.times = times;
         //Set position from -1
-        pos = -1;
-        dayTime = 0;
+        pos = 0;
         //Loop through adding a value in every data object then push
         for(i = 0; i < times; i++ ){
           schedules.push({
-            pos:pos+=1,
-            dayTime:period*pos,
-            UnitName: "Test Unit",
+            UnitName: $scope.unitName.Name,
             UnitCode: "",
             Group: 3,
             IsNewAppointment: false,
-            Lecturer: "Kevin Barasa",
-            Location: "No Rooms",
+            Lecturer: $scope.lecturerName.Name,
+            Location: $scope.roomName.Name,
             AppointmentType: 0,
             Schoolid: "sls",
-            StartTime:  Math.round(+new Date().setSeconds(new Date().getSeconds() + (period*pos))/1000),
+            StartTime:  new Date($scope.startTime).toISOString().replace("Z", "-03:00"),
             Notes: "",
-            EndTime:  Math.round(+new Date().setSeconds(new Date().getSeconds() + (period*pos))/1000)
+            EndTime:  new Date($scope.endTime).toISOString().replace("Z", "-03:00")
           })
         }
         //console.log(schedules)
@@ -156,42 +152,30 @@
         repeat
       };
     })();
-
+      // TODO: Use user value
       // Writing it to the server
-      var data = [{
-        "UnitName": $scope.unitName.Name,
-        "UnitCode": "",
-        "Group": 3,
-        "IsNewAppointment": false,
-        "Lecturer": $scope.lecturerName.Name,
-        "Location": $scope.roomName.Name,
-        "AppointmentType": 0,
-        "Schoolid": "sls",
-        "StartTime": new Date($scope.startTime).toISOString().replace("Z", "-03:00"),
-        "Notes": "",
-        "EndTime": new Date($scope.endTime).toISOString().replace("Z", "-03:00")
-      }]
+      var data = RepeatSchedules.repeat(604800,3);
       console.log(data);
-      $http.post('http://schedulesapp.azurewebsites.net/api/schedules', data )
-      .success(function(data) {
-        $scope.message = data;
-        //Call Sweet alert after successful Saving
-        swal(
-         'Successful!',
-         'The Schedule has been added to calender.',
-         'success'
-       );
-        console.log("Successfully Saved:" + data.Name + " !");
-      })
-      .error(function(data) {
-        console.log(data);
-        //Call Sweet alert with error
-        swal(
-         'Successful!',
-         'The Schedule has been added to calender.',
-         'success'
-       );
-      });
+      // $http.post('http://schedulesapp.azurewebsites.net/api/schedules', data )
+      // .success(function(data) {
+      //   $scope.message = data;
+      //   //Call Sweet alert after successful Saving
+      //   swal(
+      //    'Successful!',
+      //    'The Schedule has been added to calender.',
+      //    'success'
+      //  );
+      //   console.log("Successfully Saved:" + data.Name + " !");
+      // })
+      // .error(function(data) {
+      //   console.log(data);
+      //   //Call Sweet alert with error
+      //   swal(
+      //    'Successful!',
+      //    'The Schedule has been added to calender.',
+      //    'success'
+      //  );
+      // });
       // Making the fields empty
       $scope.unitName = '';
       //$scope.unitCode = '';
