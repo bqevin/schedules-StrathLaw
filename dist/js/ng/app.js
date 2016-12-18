@@ -139,9 +139,9 @@
             Location: $scope.roomName.Name,
             AppointmentType: 0,
             Schoolid: "sls",
-            StartTime:  new Date((((new Date($scope.startTime).getTime())/1000)+(period*pos))*1000).toISOString().replace("Z", "-03:00.000"),
+            StartTime:  new Date((((new Date($scope.startTime).getTime()))+(period*pos)*1000)).toISOString().replace("Z", "-03:00"),
             Notes: "",
-            EndTime:  new Date((((new Date($scope.endTime).getTime())/1000)+(period*pos))*1000).toISOString().replace("Z", "-03:00.000")
+            EndTime:  new Date((((new Date($scope.endTime).getTime()))+(period*pos)*1000)).toISOString().replace("Z", "-03:00")
           })
           pos++;
         }
@@ -153,30 +153,29 @@
         repeat
       };
     })();
-      // TODO: Use user value
       // Writing it to the server
       var data = RepeatSchedules.repeat(604800,$scope.times);
       console.log(data);
-      // $http.post('http://schedulesapp.azurewebsites.net/api/schedules', data )
-      // .success(function(data) {
-      //   $scope.message = data;
-      //   //Call Sweet alert after successful Saving
-      //   swal(
-      //    'Successful!',
-      //    'The Schedule has been added to calender.',
-      //    'success'
-      //  );
-      //   console.log("Successfully Saved:" + data.Name + " !");
-      // })
-      // .error(function(data) {
-      //   console.log(data);
-      //   //Call Sweet alert with error
-      //   swal(
-      //    'Successful!',
-      //    'The Schedule has been added to calender.',
-      //    'success'
-      //  );
-      // });
+      $http.post('http://schedulesapp.azurewebsites.net/api/schedules', data )
+      .success(function(data) {
+        $scope.message = data;
+        //Call Sweet alert after successful Saving
+        swal(
+         'Successful!',
+         'The Schedule has been added to calender.',
+         'success'
+       );
+        console.log("Successfully Saved:" + data.Name + " !");
+      })
+      .error(function(data) {
+        console.log(data);
+        //Call Sweet alert with error
+        swal(
+         'Successful!',
+         'The Schedule has been added to calender.',
+         'success'
+       );
+      });
       // Making the fields empty
       $scope.unitName = '';
       //$scope.unitCode = '';
@@ -253,19 +252,44 @@
         //Saving Prosecutor Schedule
         $scope.addAdvocateSched = function(){
           // Writing it to the server
-          var data = [{
-            "UnitName": $scope.unitName.Name,
-            "UnitCode": "",
-            "Group": 4,
-            "IsNewAppointment": false,
-            "Lecturer": $scope.lecturerName.Name,
-            "Location": $scope.roomName.Name,
-            "AppointmentType": 0,
-            "Schoolid": "sls",
-            "StartTime": new Date($scope.startTime).toISOString().replace("Z", "-03:00"),
-            "Notes": "",
-            "EndTime": new Date($scope.endTime).toISOString().replace("Z", "-03:00")
-          }]
+          //Auto generate repeated schedules
+          var RepeatSchedules = (function() {
+          //Schedules Holder
+          var schedules = []
+          var repeat = function (period, times){
+            //Collect parameters
+            this.period = period;
+            this.times = times;
+            //Set position from -1
+            pos = 0;
+            //Loop through adding a value in every data object then push
+            for(i = 0; i < times; i++ ){
+              schedules.push({
+                UnitName: $scope.unitName.Name,
+                UnitCode: "",
+                Group: 4,
+                IsNewAppointment: false,
+                Lecturer: $scope.lecturerName.Name,
+                Location: $scope.roomName.Name,
+                AppointmentType: 0,
+                Schoolid: "sls",
+                StartTime:  new Date((((new Date($scope.startTime).getTime()))+(period*pos)*1000)).toISOString().replace("Z", "-03:00"),
+                Notes: "",
+                EndTime:  new Date((((new Date($scope.endTime).getTime()))+(period*pos)*1000)).toISOString().replace("Z", "-03:00")
+              })
+              pos++;
+            }
+            //console.log(schedules)
+            return schedules;
+          }
+          //Public functions
+          return {
+            repeat
+          };
+        })();
+        // Writing it to the server
+        var data = RepeatSchedules.repeat(604800,$scope.times);
+
           console.log(data);
           $http.post('http://schedulesapp.azurewebsites.net/api/schedules', data )
           .success(function(data) {
@@ -294,6 +318,7 @@
           $scope.roomName = '';
           $scope.startTime = '';
           $scope.endTime = '';
+          $scope.times = '';
       };
         // //Initialize Rooms
         // $scope.reloadRooms();
