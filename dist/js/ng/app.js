@@ -139,10 +139,11 @@
             Location: $scope.roomName.Name,
             AppointmentType: 0,
             Schoolid: "sls",
-            StartTime:  new Date($scope.startTime).toISOString().replace("Z", "-03:00"),
+            StartTime:  new Date((((new Date($scope.startTime).getTime())/1000)+(period*pos))*1000).toISOString().replace("Z", "-03:00.000"),
             Notes: "",
-            EndTime:  new Date($scope.endTime).toISOString().replace("Z", "-03:00")
+            EndTime:  new Date((((new Date($scope.endTime).getTime())/1000)+(period*pos))*1000).toISOString().replace("Z", "-03:00.000")
           })
+          pos++;
         }
         //console.log(schedules)
         return schedules;
@@ -154,7 +155,7 @@
     })();
       // TODO: Use user value
       // Writing it to the server
-      var data = RepeatSchedules.repeat(604800,3);
+      var data = RepeatSchedules.repeat(604800,$scope.times);
       console.log(data);
       // $http.post('http://schedulesapp.azurewebsites.net/api/schedules', data )
       // .success(function(data) {
@@ -183,6 +184,7 @@
       $scope.roomName = '';
       $scope.startTime = '';
       $scope.endTime = '';
+      $scope.times = '';
   };
     // //Initialize Rooms
     // $scope.reloadRooms();
