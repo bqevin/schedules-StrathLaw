@@ -111,7 +111,7 @@
         </div>
         <div class="form-group">
           <label>Similar days/time (include initial date in counting) </label>
-          <input type="" min="1" name="times" placeholder="i.e 1, 5, 30 ..." ng-model="times" class="form-control"> 
+          <input type="" min="1" name="times" placeholder="i.e 1, 5, 30 ..." ng-model="times" class="form-control">
         </div>
       </div>
       <!-- /.box-body -->
@@ -279,6 +279,18 @@
                      'The Schedule has been removed.',
                      'success'
                    );
+                  $('#SchedModal').modal('hide');
+
+                  },
+                  error: function(result) {
+                    //Call Sweet alert
+                    //TODO: DELETE path should be fixed to throw success
+                    swal(
+                     'Successful!',
+                     'The Schedule has been removed.',
+                     'success'
+                     );
+                    $('#SchedModal').modal('hide');
                   }
               });
             }) ;

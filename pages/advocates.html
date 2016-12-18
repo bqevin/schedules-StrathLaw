@@ -261,7 +261,18 @@
                        'The Schedule has been removed.',
                        'success'
                      );
-                    }
+                    $('#SchedModal').modal('hide');
+                    },
+                    error: function(result) {
+                    //Call Sweet alert
+                    //TODO: DELETE path should be fixed to throw success
+                    swal(
+                     'Successful!',
+                     'The Schedule has been removed.',
+                     'success'
+                     );
+                    $('#SchedModal').modal('hide');
+                  }
                 });
               }) ;
         },
