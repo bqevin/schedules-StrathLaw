@@ -118,6 +118,45 @@
     };
     //Saving Prosecutor Schedule
     $scope.addProsecutorSched = function(){
+
+      //Auto generate repeated schedules
+      var RepeatSchedules = (function() {
+      //Schedules Holder
+      var schedules = []
+      var repeat = function (period, times){
+        //Collect parameters
+        this.period = period;
+        this.times = times;
+        //Set position from -1
+        pos = -1;
+        dayTime = 0;
+        //Loop through adding a value in every data object then push
+        for(i = 0; i < times; i++ ){
+          schedules.push({
+            pos:pos+=1,
+            dayTime:period*pos,
+            UnitName: "Test Unit",
+            UnitCode: "",
+            Group: 3,
+            IsNewAppointment: false,
+            Lecturer: "Kevin Barasa",
+            Location: "No Rooms",
+            AppointmentType: 0,
+            Schoolid: "sls",
+            StartTime:  Math.round(+new Date().setSeconds(new Date().getSeconds() + (period*pos))/1000),
+            Notes: "",
+            EndTime:  Math.round(+new Date().setSeconds(new Date().getSeconds() + (period*pos))/1000)
+          })
+        }
+        //console.log(schedules)
+        return schedules;
+      }
+      //Public functions
+      return {
+        repeat
+      };
+    })();
+
       // Writing it to the server
       var data = [{
         "UnitName": $scope.unitName.Name,
