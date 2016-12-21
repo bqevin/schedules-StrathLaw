@@ -126,6 +126,12 @@
         //Collect parameters
         this.period = period;
         this.times = times;
+        //If checked, assign number of weeks user has selected. 
+        //else insert ONLY 1 entry.
+        if (typeof times == 'undefined') {
+          times = 1;
+        }
+        //console.log(times);
         //Set position from -1
         pos = 0;
         //Loop through adding a value in every data object then push
@@ -255,11 +261,16 @@
           //Auto generate repeated schedules
           var RepeatSchedules = (function() {
           //Schedules Holder
-          var schedules = []
+          var schedules = [];
           var repeat = function (period, times){
             //Collect parameters
             this.period = period;
             this.times = times;
+            //If checked, assign number of weeks user has selected. 
+              //else insert ONLY 1 entry.
+              if (typeof times == 'undefined') {
+                times = 1;
+              }
             //Set position from -1
             pos = 0;
             //Loop through adding a value in every data object then push

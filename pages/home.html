@@ -109,9 +109,33 @@
           </div>
           <!-- /.input group -->
         </div>
-        <div class="form-group">
-          <label>Similar days/time (include initial date in counting) </label>
-          <input type="" min="1" name="times" placeholder="i.e 1, 5, 30 ..." ng-model="times" class="form-control">
+        <div class="checkbox">
+          <label><input type="checkbox" id="repeater">Repeat this event</label>
+        </div>
+        <div class="form-group repeater-drop">
+        <label>Select number of weeks</label>
+          <select ng-model="times" class="form-control">
+            <option value="1">1 Week</option>
+            <option value="2">2 Weeks</option>
+            <option value="3">3 Weeks</option>
+            <option value="4">4 Weeks</option>
+            <option value="5">5 Weeks</option>
+            <option value="6">6 Weeks</option>
+            <option value="7">7 Weeks</option>
+            <option value="8">8 Weeks</option>
+            <option value="9">9 Weeks</option>
+            <option value="10">10 Weeks</option>
+            <option value="11">11 Weeks</option>
+            <option value="12">12 Weeks</option>
+            <option value="13">13 Weeks</option>
+            <option value="14">14 Weeks</option>
+            <option value="15">15 Weeks</option>
+            <option value="16">16 Weeks</option>
+            <option value="17">17 Weeks</option>
+            <option value="18">18 Weeks</option>
+            <option value="19">19 Weeks</option>
+            <option value="20">20 Weeks</option>
+          </select>
         </div>
       </div>
       <!-- /.box-body -->
@@ -137,6 +161,13 @@
     $('#datetimepicker').datetimepicker();
     //End time
     $('#datetimepicker2').datetimepicker();
+
+    //SCHEDULES REPEATING
+    //If repeat events checked, show dropdown menu
+    $('#repeater').change(function () {                
+        $('.repeater-drop').toggle(this.checked);
+    }).change();
+
     /* initialize the external events
      -----------------------------------------------------------------*/
     function ini_events(ele) {
